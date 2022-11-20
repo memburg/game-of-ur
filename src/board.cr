@@ -1,9 +1,10 @@
-class Board
-  def initialize
-  end
+require "./*"
 
-  def print_board
+class Board
+  def self.print_board
     puts "\33c\e[3J                                                 "
+    puts "LAST MOVEMENT: NA                                         "
+    puts "                                                          "
     puts "     00     01     02     03     04     05     06     07  "
     puts "                                                          "
     puts "   ░░░░░░ ░░░░░░ ░░░░░░ ░░░░░░               ░░░░░░ ░░░░░░"

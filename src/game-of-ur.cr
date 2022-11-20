@@ -4,7 +4,5 @@ require "./*"
 module Game::Of::Ur
   VERSION = "0.1.0"
 
-  # Create a new 'Board' object
-  board = Board.new
-  board.print_board
+  Board.print_board
 end
