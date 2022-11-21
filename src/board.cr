@@ -1,7 +1,7 @@
-require "./*"
+require "./dice.cr"
 
 class Board
-  def self.print_board
+  def print_board
     puts "\33c\e[3J                                                 "
     puts "LAST MOVEMENT: NA                                         "
     puts "                                                          "
