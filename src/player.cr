@@ -11,21 +11,21 @@ class Player
     pp @runes
   end
 
-  def move_rune(rune : Int32, position : String)
-    if rune > @runes.size || rune <= 0
-      puts "Cannot move rune #{rune} since it does not exist"
-      return
-    end
+  def move_rune(rune : Int32, position : String) : Array(String | Int32)
+    # if rune > @runes.size || rune <= 0
+    #   puts "Cannot move rune #{rune} since it does not exist"
+    #   return
+    # end
 
-    if position.size > 3 || position.includes?("8") || position.includes?("9") || position == "A04" || position == "A05" || position == "C04" || position == "C05"
-      puts "Invalid position (#{position})"
-      return
-    end
+    # if position.size > 3 || position.includes?("8") || position.includes?("9") || position == "A04" || position == "A05" || position == "C04" || position == "C05"
+    #   puts "Invalid position (#{position})"
+    #   return
+    # end
 
     puts "Moving rune #{rune} to position #{position}"
     @runes[rune - 1] = position
 
     # return rune and new position
-    return [0, 8]
+    return [0, "B06"]
   end
 end
