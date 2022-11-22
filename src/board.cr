@@ -1,6 +1,24 @@
 require "./dice.cr"
+require "./player.cr"
 
 class Board
+  # Class constants
+  OCCUPIED      = "OC"
+  AVAILABLE     = "AV"
+  NOT_AVAILABLE = "NA"
+
+  # Initialize class with 2 players (this game is
+  # a game of 2 :P)
+  def initialize
+    @player_a = Player.new
+    @player_b = Player.new
+    @board_map = { # Mapping of the board
+      "A" => [AVAILABLE, AVAILABLE, AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, AVAILABLE, AVAILABLE],
+      "B" => [AVAILABLE, AVAILABLE, AVAILABLE, AVAILABLE, AVAILABLE, AVAILABLE, AVAILABLE],
+      "C" => [AVAILABLE, AVAILABLE, AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, AVAILABLE, AVAILABLE],
+    }
+  end
+
   def print_board
     puts "\33c\e[3J                                                 "
     puts "LAST MOVEMENT: NA                                         "
