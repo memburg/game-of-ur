@@ -4,19 +4,18 @@ require "./player.cr"
 class Board
   # Class constants
   FREE       = "FR"
-  OCCUPIED   = "OC"
   RESTRICTED = "RE"
 
   # Initialize class with 2 players (this game is
   # a game of 2 :P)
-  def initialize
+  def initialize(dice : Dice)
     @moves = "P1"
-    @player_a = Player.new
-    @player_b = Player.new
+    @player_a = Player.new("A")
+    @player_b = Player.new("B")
     @board_map = { # Mapping of the board
-      "A" => [FREE, FREE, FREE, RESTRICTED, RESTRICTED, FREE, FREE],
-      "B" => [FREE, FREE, FREE, FREE, FREE, FREE, FREE],
-      "C" => [FREE, FREE, FREE, RESTRICTED, RESTRICTED, FREE, FREE],
+      "A" => [FREE, FREE, FREE, FREE, RESTRICTED, RESTRICTED, FREE, FREE],
+      "B" => [FREE, FREE, FREE, FREE, FREE, FREE, FREE, FREE],
+      "C" => [FREE, FREE, FREE, FREE, RESTRICTED, RESTRICTED, FREE, FREE],
     }
   end
 
@@ -41,26 +40,35 @@ class Board
     puts "PLAYER B:                                                 "
     puts "B1, B2, B3, B4, B5, B6, B7                                "
 
-    move_rune(@player_a, 1, "A00")
+    move_rune(@player_a, 1, "A07")
   end
 
   private def move_rune(p : Player, rune : Int32, position : String)
-    puts p.runes
     row, middle, column = position.split("")
 
-    if row < "A" && row > "C"
+    if (row < "A") && (row > "C")
       puts "#{row} IS NOT A VALID ROW"
       return
     end
 
-    if column < "0" || column > "7"
+    if (column < "0") || (column > "7")
       puts "#{column} IS NOT A VALID COLUMN"
       return
     end
 
-    p.runes[rune - 1] = position
+    if (p.name == "A" && position.includes?("C")) || (p.name == "B" && position.includes?("A"))
+      puts "#{position} IS NOT A VALID POSITION FOR PLAYER #{p.name}"
+      return
+    end
 
-    puts p.runes
-    pp @board_map
+    if @board_map[row][column.to_i] == RESTRICTED
+      puts "#{position} IS AN INACCESSIBLE POSITION"
+      return
+    end
+
+    # Reassign the new value in case there is
+    # no error during the validation
+    p.runes[rune - 1] = position
+    @board_map[row][column.to_i] = "A#{rune}"
   end
 end
